@@ -5,7 +5,7 @@ class Node {
   }
 }
 
-class LinkedList {
+export class LinkedList {
   constructor() {
     this.head = null;
     this.size = 0;
@@ -55,16 +55,19 @@ class LinkedList {
   }
 
   at(index) {
-    if(index === 0) return this.head;
+    if (!this.head) return undefined;
+    if (index < 0 || index >= this.size) return undefined;
+    if (index === 0) return this.head;
     let i = 0;
     let current = this.head;
-    while(current.nextNode){
+    while (current.nextNode) {
       i += 1;
       current = current.nextNode;
-      if(index === i) {
+      if (index === i) {
         return current;
       }
     }
+    return undefined;
   }
 
   pop() {
@@ -85,6 +88,7 @@ class LinkedList {
 
   find(value) {
     let i = 0;
+    if (!this.head) return undefined;
     if (this.head.value === value) return i;
     let current = this.head;
     while(current.nextNode) {
@@ -92,6 +96,7 @@ class LinkedList {
       i += 1;
       if (current.value === value) return i;
     }
+    return undefined;
   }
 
   toString() {
@@ -126,6 +131,8 @@ class LinkedList {
   }
 
   removeAt(index){
+    if (!this.head || index < 0 || index >= this.size) return;
+
     if(index === 0){
       this.head = this.head.nextNode;
       this.size -= 1;
@@ -133,23 +140,23 @@ class LinkedList {
     }
 
     const prev = this.at(index-1);
+    if (!prev || !prev.nextNode) return;
+
     const toRemove = prev.nextNode;
-
     prev.nextNode = toRemove.nextNode;
-
     this.size -= 1;
   }
 }
 
-const list = new LinkedList();
+// const list = new LinkedList();
 
-list.append(10);
-list.append(20);
-list.append(30);
+// list.append(10);
+// list.append(20);
+// list.append(30);
 
-list.prepend(40);
+// list.prepend(40);
 
-console.dir(list, { depth: null });
+// console.dir(list, { depth: null });
 
 // console.log("Size:")
 // console.log(list.getSize());
@@ -173,12 +180,12 @@ console.dir(list, { depth: null });
 
 // console.log(list.toString());
 
-list.insertAt(50, 3);
+// list.insertAt(50, 3);
 
-console.dir(list, { depth: null });
-console.log(list.toString());
+// console.dir(list, { depth: null });
+// console.log(list.toString());
 
-list.removeAt(2);
+// list.removeAt(2);
 
-console.dir(list, { depth: null});
-console.log(list.toString());
+// console.dir(list, { depth: null});
+// console.log(list.toString());
